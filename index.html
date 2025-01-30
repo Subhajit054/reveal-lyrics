@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Lyrics</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(45deg, #ff758c, #ff7eb3, #ffdde1);
+            animation: backgroundAnimation 10s infinite alternate;
+            overflow: hidden;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: #ff758c; }
+            50% { background: #ff7eb3; }
+            100% { background: #ffdde1; }
+        }
+
+        .container {
+            margin-top: 50px;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.6);
+        }
+
+        #lyrics {
+            font-size: 1.8em;
+            color: #fff;
+            white-space: pre-wrap;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .heart {
+            position: absolute;
+            top: 0;
+            font-size: 30px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(0); }
+            to { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>For You...</h1>
+        <p id="lyrics"></p>
+    </div>
+    <audio id="song" controls autoplay>
+        <source src="sun-mere-humsafar.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        const lyrics = `Sun mere humsafar, kya tujhe itni si bhi khabar Ki teri saansein chalti jidhar, rahunga bas wahi umrr bhar Rahunga bas wahi umrr bhar, haan...`;
+        const lyricsContainer = document.getElementById("lyrics");
+        let index = 0;
+
+        function revealLyrics() {
+            if (index < lyrics.length) {
+                lyricsContainer.textContent += lyrics[index];
+                let delay = lyrics[index] === ' ' ? 350 : 200; 
+                index++;
+                setTimeout(revealLyrics, delay);
+            }
+        }
+
+        function fallingHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerText = "🌸";
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 300);
+        }
+
+        window.onload = () => {
+            revealLyrics();
+            fallingHearts();
+        };
+    </script>
+</body>
+</html>
